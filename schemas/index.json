@@ -1,0 +1,48 @@
+{
+  "catalog_version": "1.0.0",
+  "updated_at": "2026-07-29",
+  "schemas": [
+    {
+      "id": "pbta_v1",
+      "name": "Powered by the Apocalypse",
+      "system_family": "PbtA",
+      "version": "1.0.0",
+      "license": "Creative Commons Attribution 4.0",
+      "license_type": "CC-BY-4.0",
+      "status": "Stable",
+      "author": "Community Open-Source (Project Logos)",
+      "description": "Standard 2d6 + Stat evaluation schema with Strong Hit (10+), Weak Hit (7-9), and Miss (6-) outcome branches.",
+      "schema_file": "schemas/pbta_v1.json",
+      "operators": ["2d6", "add", "gte", "between", "lte"],
+      "tags": ["2d6", "PbtA", "Narrative", "Creative Commons"]
+    },
+    {
+      "id": "fitd_v1",
+      "name": "Forged in the Dark",
+      "system_family": "FitD",
+      "version": "1.0.0",
+      "license": "Creative Commons Attribution 3.0",
+      "license_type": "CC-BY-3.0",
+      "status": "Stable",
+      "author": "Community Open-Source (Project Logos)",
+      "description": "Dice pool evaluation schema. Rolls Nd6, evaluates highest single die (6 Critical/Success, 4-5 Partial, 1-3 Bad), with zero-dice pool exception rules (2d6 keep lowest).",
+      "schema_file": "schemas/fitd_v1.json",
+      "operators": ["dice_pool", "max", "min", "equal_6_count", "range_eval"],
+      "tags": ["d6 Pool", "FitD", "Blades in the Dark", "Creative Commons"]
+    },
+    {
+      "id": "d20_srd_v1",
+      "name": "d20 SRD Generic Baseline",
+      "system_family": "d20",
+      "version": "1.0.0",
+      "license": "Open Game License 1.0a",
+      "license_type": "OGL-1.0a",
+      "status": "Stable",
+      "author": "Community Open-Source (Project Logos)",
+      "description": "Universal d20 roll against Target DC schema with advantage/disadvantage, critical hits (20), and critical misses (1).",
+      "schema_file": "schemas/d20_srd_v1.json",
+      "operators": ["1d20", "advantage", "disadvantage", "add", "gte", "crit_check"],
+      "tags": ["d20", "SRD", "OGL", "Advantage"]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "pbta_v1",
+  "title": "Powered by the Apocalypse (PbtA) Action AST",
+  "version": "1.0.0",
+  "license": "CC-BY-4.0",
+  "ast_nodes": {
+    "root": {
+      "type": "binary_op",
+      "operator": "ADD",
+      "left": {
+        "type": "dice_roll",
+        "dice": "2d6"
+      },
+      "right": {
+        "type": "stat_modifier",
+        "variable": "stat_value"
+      }
+    },
+    "evaluation": {
+      "type": "switch",
+      "branches": [
+        {
+          "condition": { "operator": "GTE", "target": 10 },
+          "result": "STRONG_HIT",
+          "narrative_outcome": "Full success with no mechanical complication."
+        },
+        {
+          "condition": { "operator": "BETWEEN", "min": 7, "max": 9 },
+          "result": "WEAK_HIT",
+          "narrative_outcome": "Partial success; success with cost or compromise."
+        },
+        {
+          "condition": { "operator": "LTE", "target": 6 },
+          "result": "MISS",
+          "narrative_outcome": "Failure; GM makes a Move."
+        }
+      ]
+    }
+  }
+}

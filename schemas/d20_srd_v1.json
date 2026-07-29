@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "d20_srd_v1",
+  "title": "Generic d20 SRD Action AST",
+  "version": "1.0.0",
+  "license": "OGL-1.0a",
+  "ast_nodes": {
+    "root": {
+      "type": "binary_op",
+      "operator": "ADD",
+      "left": {
+        "type": "d20_roll",
+        "mode_eval": {
+          "NORMAL": "1d20",
+          "ADVANTAGE": "2d20_KEEP_HIGHEST",
+          "DISADVANTAGE": "2d20_KEEP_LOWEST"
+        }
+      },
+      "right": {
+        "type": "sum",
+        "terms": ["ability_modifier", "proficiency_bonus", "situational_modifier"]
+      }
+    },
+    "evaluation": {
+      "type": "check_against_dc",
+      "critical_check": {
+        "natural_20": "AUTOMATIC_CRITICAL_SUCCESS",
+        "natural_1": "AUTOMATIC_CRITICAL_FAILURE"
+      },
+      "standard_check": {
+        "operator": "GTE",
+        "target": "target_dc",
+        "success": "SUCCESS",
+        "failure": "FAILURE"
+      }
+    }
+  }
+}

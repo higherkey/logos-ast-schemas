@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "fitd_v1",
+  "title": "Forged in the Dark (FitD) Action AST",
+  "version": "1.0.0",
+  "license": "CC-BY-3.0",
+  "ast_nodes": {
+    "root": {
+      "type": "conditional_pool",
+      "if_pool_zero": {
+        "roll": "2d6",
+        "eval_func": "KEEP_LOWEST"
+      },
+      "if_pool_greater_zero": {
+        "roll": "Nd6",
+        "eval_func": "KEEP_HIGHEST"
+      }
+    },
+    "evaluation": {
+      "type": "switch",
+      "branches": [
+        {
+          "condition": { "operator": "MULTIPLE_SIXES", "min_count": 2 },
+          "result": "CRITICAL",
+          "narrative_outcome": "Critical success with extra effect."
+        },
+        {
+          "condition": { "operator": "HIGHEST_EQUALS", "target": 6 },
+          "result": "FULL_SUCCESS",
+          "narrative_outcome": "Full success with zero complication."
+        },
+        {
+          "condition": { "operator": "HIGHEST_IN_RANGE", "min": 4, "max": 5 },
+          "result": "PARTIAL_SUCCESS",
+          "narrative_outcome": "Partial success; effect achieved with consequence."
+        },
+        {
+          "condition": { "operator": "HIGHEST_IN_RANGE", "min": 1, "max": 3 },
+          "result": "BAD_OUTCOME",
+          "narrative_outcome": "Bad outcome; consequence occurs."
+        }
+      ]
+    }
+  }
+}
