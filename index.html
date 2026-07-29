@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Logos — Open AST Schema Registry</title>
+  <meta name="description" content="Public catalog and interactive schema registry for open-source tabletop RPG Abstract Syntax Trees (ASTs).">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-title">
+        <span>⚡ Project Logos</span>
+        <span class="brand-badge">Open AST Registry</span>
+      </div>
+      <nav class="header-nav">
+        <a href="https://github.com/higherkey/logos-ast-schemas" target="_blank" rel="noopener" class="btn btn-secondary">
+          <span>📁 GitHub Repo</span>
+        </a>
+        <a href="https://github.com/higherkey/logos-ast-schemas/issues/new?template=submit_schema.md" target="_blank" rel="noopener" class="btn btn-primary">
+          <span>+ Propose Schema</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-layout">
+    
+    <!-- Hero Banner -->
+    <section class="hero-section">
+      <h1 class="hero-title">Open Abstract Syntax Tree (AST) Catalog</h1>
+      <p class="hero-subtitle">
+        Explore, inspect, and consume open-source, mathematically deterministic rules schemas for tabletop RPG systems.
+      </p>
+    </section>
+
+    <!-- Toolbar & Filters -->
+    <section class="toolbar-panel">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" placeholder="Search schemas by name, system, license, or tag..." aria-label="Search schemas">
+      </div>
+      <div class="filter-pills" role="tablist" aria-label="Schema Category Filters">
+        <button class="pill active" data-category="ALL" role="tab">All Schemas</button>
+        <button class="pill" data-category="PbtA" role="tab">PbtA (2d6)</button>
+        <button class="pill" data-category="FitD" role="tab">FitD (Pool)</button>
+        <button class="pill" data-category="d20" role="tab">d20 SRD</button>
+        <button class="pill" data-category="CC-BY" role="tab">Creative Commons</button>
+        <button class="pill" data-category="OGL" role="tab">OGL</button>
+      </div>
+    </section>
+
+    <!-- Schemas Cards Grid -->
+    <section id="schemas-container" class="schemas-grid" aria-live="polite">
+      <!-- Dynamically populated by app.js -->
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Project Logos — Free & Open Source Forever AST Schemas. Licensed under AGPLv3 / CC-BY.</p>
+    </footer>
+  </main>
+
+  <!-- Inspection Modal / Drawer -->
+  <div id="inspect-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-drawer">
+      <div class="modal-header">
+        <h2 id="modal-title" class="card-title">Schema Details</h2>
+        <button id="modal-close-btn" class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <pre id="modal-code" class="json-viewer"></pre>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
