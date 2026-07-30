@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Logos — Open AST Schema Registry</title>
-  <meta name="description" content="Public catalog and interactive schema registry for open-source tabletop RPG Abstract Syntax Trees (ASTs).">
+  <title>Project Logos — Central Project Hub & AST Registry</title>
+  <meta name="description" content="Central knowledge hub, vision overview, and open AST schema registry for Project Logos tabletop RPG infrastructure.">
   
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,71 +14,182 @@
 </head>
 <body>
 
-  <!-- App Header -->
+  <!-- Global Header Navbar -->
   <header class="app-header">
-    <div class="header-container">
-      <div class="brand-title">
-        <span>⚡ Project Logos</span>
-        <span class="brand-badge">Open AST Registry</span>
-      </div>
+    <div class="brand-group">
+      <a class="brand" onclick="navigateTo('overview')">Project Logos</a>
       <nav class="header-nav">
-        <a href="https://github.com/higherkey/logos-ast-schemas" target="_blank" rel="noopener" class="btn btn-secondary">
-          <span>📁 GitHub Repo</span>
-        </a>
-        <a href="https://github.com/higherkey/logos-ast-schemas/issues/new?template=submit_schema.md" target="_blank" rel="noopener" class="btn btn-primary">
-          <span>+ Propose Schema</span>
-        </a>
+        <a class="nav-link active" data-page="overview" onclick="navigateTo('overview')">Overview</a>
+        <a class="nav-link" data-page="values" onclick="navigateTo('values')">Values</a>
+        <a class="nav-link" data-page="roadmap" onclick="navigateTo('roadmap')">Roadmap</a>
+        <a class="nav-link" data-page="registry" onclick="navigateTo('registry')">AST Registry</a>
       </nav>
+    </div>
+
+    <div class="header-right">
+      <a href="https://github.com/higherkey/logos-ast-schemas" target="_blank" rel="noopener" class="btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>GitHub</span>
+      </a>
+      <a href="https://github.com/higherkey/logos-ast-schemas/issues/new?template=submit_schema.md" target="_blank" rel="noopener" class="btn btn-primary">
+        <span>+ Propose Schema</span>
+      </a>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="main-layout">
-    
-    <!-- Hero Banner -->
-    <section class="hero-section">
-      <h1 class="hero-title">Open Abstract Syntax Tree (AST) Catalog</h1>
-      <p class="hero-subtitle">
-        Explore, inspect, and consume open-source, mathematically deterministic rules schemas for tabletop RPG systems.
-      </p>
-    </section>
+  <!-- PAGE 1: OVERVIEW -->
+  <div id="page-overview" class="page-container">
+    <h1 class="page-title">Defensive Open-Core Infrastructure for Tabletop RPGs</h1>
+    <p class="page-lead">
+      Project Logos is a specialized Game Master Engine and administrative co-pilot designed to eliminate mechanical friction in tabletop RPG gameplay without encroaching on human creativity. 
+      Large Language Models are restricted to probabilistic intent parsing, while an immutable Abstract Syntax Tree (AST) logic core executes mechanical rules with 100% mathematical precision — guaranteeing zero slop and zero hallucinations.
+    </p>
 
-    <!-- Toolbar & Filters -->
-    <section class="toolbar-panel">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="search-input" class="search-input" placeholder="Search schemas by name, system, license, or tag..." aria-label="Search schemas">
+    <div class="component-card">
+      <div class="component-info">
+        <h3 class="component-name">Open AST Schema Registry</h3>
+        <p class="component-desc">Public open-source catalog of system-agnostic rules ASTs (PbtA, Forged in the Dark, Pathfinder 2e SRD, d20 SRD). Free and transparent forever.</p>
       </div>
-      <div class="filter-pills" role="tablist" aria-label="Schema Category Filters">
-        <button class="pill active" data-category="ALL" role="tab">All Schemas</button>
-        <button class="pill" data-category="PbtA" role="tab">PbtA (2d6)</button>
-        <button class="pill" data-category="FitD" role="tab">FitD (Pool)</button>
-        <button class="pill" data-category="d20" role="tab">d20 SRD</button>
-        <button class="pill" data-category="CC-BY" role="tab">Creative Commons</button>
-        <button class="pill" data-category="OGL" role="tab">OGL</button>
+      <div>
+        <button class="btn btn-primary" onclick="navigateTo('registry')">Explore AST Registry &rarr;</button>
       </div>
-    </section>
-
-    <!-- Schemas Cards Grid -->
-    <section id="schemas-container" class="schemas-grid" aria-live="polite">
-      <!-- Dynamically populated by app.js -->
-    </section>
-
-    <!-- Footer -->
-    <footer class="app-footer">
-      <p>Project Logos — Free & Open Source Forever AST Schemas. Licensed under AGPLv3 / CC-BY.</p>
-    </footer>
-  </main>
-
-  <!-- Inspection Modal / Drawer -->
-  <div id="inspect-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
-    <div class="modal-drawer">
-      <div class="modal-header">
-        <h2 id="modal-title" class="card-title">Schema Details</h2>
-        <button id="modal-close-btn" class="modal-close" aria-label="Close modal">&times;</button>
-      </div>
-      <pre id="modal-code" class="json-viewer"></pre>
     </div>
+
+    <div class="component-card">
+      <div class="component-info">
+        <h3 class="component-name">First-Party VTT Application Interface</h3>
+        <p class="component-desc">The primary user-facing Game Master studio and campaign state coordinator powered by Project Logos rules engines and Git ledger timelines.</p>
+      </div>
+      <div>
+        <span class="tag-mono">Application Interface (Coming Soon)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: VALUES -->
+  <div id="page-values" class="page-container" style="display: none;">
+    <h1 class="page-title">Core Mandates & Philosophy</h1>
+    <p class="page-lead">Guiding architectural principles and ethical mandates behind Project Logos.</p>
+
+    <div class="values-list">
+      <div class="value-card">
+        <h3 class="value-title">1. The "No Slop" Mandate</h3>
+        <p class="value-text">Human artistic authority remains primary. Generative AI is strictly restricted to probabilistic intent parsing — mechanical rules adjudication is always 100% deterministic.</p>
+      </div>
+
+      <div class="value-card">
+        <h3 class="value-title">2. Bring Your Own Key / Model (BYOK / BYOM)</h3>
+        <p class="value-text">Individual users can connect local engine instances to their own LLM providers (OpenAI, Anthropic, or local Ollama). Zero platform tax — creators only pay direct compute costs to their chosen provider.</p>
+      </div>
+
+      <div class="value-card">
+        <h3 class="value-title">3. Proprietary Engine Platform & Open Rules Ecosystem</h3>
+        <p class="value-text">High-value engine orchestration code remains secure and proprietary, while all ruleset data schemas, hit point trackers, and hit threshold AST files remain completely open-source and vendor-lock free.</p>
+      </div>
+
+      <div class="value-card">
+        <h3 class="value-title">4. Physical-to-Digital Protocol</h3>
+        <p class="value-text">Rejects predatory double-purchase models by enabling physical book owners to unlock digital AST schemas at no extra cost.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: ROADMAP -->
+  <div id="page-roadmap" class="page-container" style="display: none;">
+    <h1 class="page-title">Project Roadmap & Milestones</h1>
+    <p class="page-lead">Strategic milestones for the evolution of the Project Logos ecosystem.</p>
+
+    <div class="milestones-list">
+      <div class="milestone-card">
+        <div class="milestone-header">
+          <span class="milestone-badge">MILESTONE 1 &bull; ACTIVE</span>
+          <h3 class="milestone-title">Open Rulebook AST Catalog & 11-System Cohorts</h3>
+        </div>
+        <p class="milestone-desc">Establishing community-driven, open-source AST schemas for major tabletop RPG playstyle cohorts (PbtA, Forged in the Dark, Pathfinder 2e SRD, d20 SRD) and validating sandboxed mathematical execution trees.</p>
+      </div>
+
+      <div class="milestone-card">
+        <div class="milestone-header">
+          <span class="milestone-badge" style="color: var(--text-muted); background: transparent; border-color: var(--border-color);">MILESTONE 2 &bull; PLANNED</span>
+          <h3 class="milestone-title">Automated Rulebook Ingestion & Player Studio</h3>
+        </div>
+        <p class="milestone-desc">Ingesting physical rulebooks directly into playable AST schemas using Neuro-Symbolic (NeSy) visual document parsing models and connecting them to first-party player character tools with Git-backed campaign timelines.</p>
+      </div>
+
+      <div class="milestone-card">
+        <div class="milestone-header">
+          <span class="milestone-badge" style="color: var(--text-muted); background: transparent; border-color: var(--border-color);">MILESTONE 3 &bull; FUTURE</span>
+          <h3 class="milestone-title">Publisher Ecosystem & Multi-System Federation</h3>
+        </div>
+        <p class="milestone-desc">Partnering with commercial publishers for official storefront distribution channels, self-refining telemetry nodes, and expanding multi-system cross-play capabilities.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 4: AST REGISTRY SUB-PAGE (With Sidebar) -->
+  <div id="page-registry" class="registry-body" style="display: none;">
+    
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar-nav" class="sidebar-nav">
+      <div class="sidebar-header">
+        <div class="search-wrapper">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="search-input" class="search-input" placeholder="Search AST schemas..." aria-label="Search schemas">
+        </div>
+      </div>
+      <div class="sidebar-title">Ruleset Systems</div>
+      <div id="sidebar-list" class="sidebar-list" role="listbox">
+        <!-- Populated by app.js -->
+      </div>
+    </aside>
+
+    <!-- Main Content Pane -->
+    <main class="content-pane">
+      
+      <div class="back-bar">
+        <button class="btn btn-outline" onclick="navigateTo('overview')">&larr; Back to Project Hub</button>
+      </div>
+
+      <section class="spec-view">
+        <div class="spec-header">
+          <div>
+            <h1 id="spec-title" class="spec-title">System Name</h1>
+            <div id="spec-meta" class="spec-meta">License & Metadata</div>
+          </div>
+          <div class="header-right">
+            <button id="spec-copy-btn" class="btn btn-code">Copy Endpoint URL</button>
+            <a id="spec-download-btn" class="btn btn-outline" download>Download JSON</a>
+          </div>
+        </div>
+
+        <nav class="tab-nav">
+          <button class="tab-btn active" data-tab="json" onclick="switchSpecTab('json')">JSON Schema Specification</button>
+          <button class="tab-btn" data-tab="branches" onclick="switchSpecTab('branches')">Outcome Branches</button>
+          <button class="tab-btn" data-tab="mechanics" onclick="switchSpecTab('mechanics')">How This System Runs</button>
+        </nav>
+
+        <div id="spec-tab-content">
+          <!-- JSON View -->
+          <div id="tab-view-json">
+            <pre id="spec-json-code" class="code-block"></pre>
+          </div>
+
+          <!-- Outcome Branches View -->
+          <div id="tab-view-branches" style="display: none;">
+            <div id="spec-branches-container" class="branches-list"></div>
+          </div>
+
+          <!-- Mechanics Explanation View -->
+          <div id="tab-view-mechanics" style="display: none;">
+            <div style="padding: 12px 0;">
+              <p id="spec-mechanics-body" style="color: var(--text-secondary); line-height: 1.6;"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
   </div>
 
   <script src="app.js"></script>

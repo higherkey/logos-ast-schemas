@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "id": "d20_srd_v1",
   "title": "Generic d20 SRD Action AST",
-  "version": "1.0.0",
+  "version": "v0.1.0",
   "license": "OGL-1.0a",
   "ast_nodes": {
     "root": {

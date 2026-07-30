@@ -2,8 +2,9 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "id": "fitd_v1",
   "title": "Forged in the Dark (FitD) Action AST",
-  "version": "1.0.0",
+  "version": "v0.1.0",
   "license": "CC-BY-3.0",
+  "function_contract": "fitd_eval(rolls: List[int], is_zero_rating: bool = False)",
   "ast_nodes": {
     "root": {
       "type": "conditional_pool",

@@ -2,8 +2,9 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "id": "pbta_v1",
   "title": "Powered by the Apocalypse (PbtA) Action AST",
-  "version": "1.0.0",
+  "version": "v0.1.0",
   "license": "CC-BY-4.0",
+  "function_contract": "pbta_eval(roll_total: int)",
   "ast_nodes": {
     "root": {
       "type": "binary_op",

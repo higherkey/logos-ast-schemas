@@ -1,8 +1,11 @@
 let catalogData = [];
+let selectedSchemaId = null;
+let currentSchemaJson = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadCatalog();
   setupEventListeners();
+  handleUrlRouting();
 });
 
 async function loadCatalog() {
@@ -11,130 +14,218 @@ async function loadCatalog() {
     if (!res.ok) throw new Error('Failed to load catalog');
     const data = await res.json();
     catalogData = data.schemas || [];
-    renderSchemas(catalogData);
+    renderSidebarList(catalogData);
   } catch (err) {
-    console.error('Error loading AST catalog:', err);
-    document.getElementById('schemas-container').innerHTML = `
-      <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">
-        <p>⚠️ Unable to load AST schemas catalog. Please check network or file path.</p>
+    console.error('Error loading catalog:', err);
+    document.getElementById('sidebar-list').innerHTML = `
+      <div style="padding: 16px; color: var(--text-muted);">
+        Unable to load schemas.
       </div>
     `;
   }
 }
 
-function renderSchemas(schemas) {
-  const container = document.getElementById('schemas-container');
+function renderSidebarList(schemas) {
+  const container = document.getElementById('sidebar-list');
   if (!schemas || schemas.length === 0) {
     container.innerHTML = `
-      <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">
-        <p>No matching AST schemas found.</p>
+      <div style="padding: 16px; color: var(--text-muted); font-size: 12px;">
+        No systems match search.
       </div>
     `;
     return;
   }
 
-  container.innerHTML = schemas.map(schema => `
-    <article class="card">
-      <div>
-        <div class="card-header">
-          <h3 class="card-title">${escapeHtml(schema.name)}</h3>
-          <span class="tag-badge">${escapeHtml(schema.version)}</span>
-        </div>
-        <p class="card-desc">${escapeHtml(schema.description)}</p>
-        <div class="meta-row">
-          <span class="meta-chip">🔓 ${escapeHtml(schema.license_type)}</span>
-          <span class="meta-chip">📦 ${escapeHtml(schema.status)}</span>
-          ${(schema.tags || []).map(t => `<span class="meta-chip">#${escapeHtml(t)}</span>`).join('')}
-        </div>
-      </div>
-      <div class="card-actions">
-        <button class="btn btn-primary" style="flex:1;" onclick="inspectSchema('${schema.id}')">Inspect Schema</button>
-        <button class="btn btn-secondary" onclick="copySchemaUrl('${schema.schema_file}', this)">Copy Raw URL</button>
-      </div>
-    </article>
+  container.innerHTML = schemas.map(s => `
+    <div class="sidebar-item ${s.id === selectedSchemaId ? 'active' : ''}" 
+         onclick="selectSchema('${s.id}')"
+         role="option"
+         aria-selected="${s.id === selectedSchemaId}">
+      <span class="item-name">${escapeHtml(s.name)}</span>
+      <div class="item-meta">${escapeHtml(s.license_type)} • ${escapeHtml(s.version)}</div>
+    </div>
   `).join('');
 }
 
-async function inspectSchema(schemaId) {
+function navigateTo(pageName) {
+  const pages = ['overview', 'values', 'roadmap', 'registry'];
+  pages.forEach(p => {
+    const el = document.getElementById(`page-${p}`);
+    if (el) el.style.display = p === pageName ? (p === 'registry' ? 'flex' : 'block') : 'none';
+  });
+
+  const links = document.querySelectorAll('.nav-link');
+  links.forEach(l => {
+    if (l.getAttribute('data-page') === pageName) {
+      l.classList.add('active');
+    } else {
+      l.classList.remove('active');
+    }
+  });
+
+  if (pageName === 'registry') {
+    if (catalogData.length > 0 && !selectedSchemaId) {
+      selectSchema(catalogData[0].id);
+    }
+    window.history.pushState(null, '', '#registry');
+  } else {
+    selectedSchemaId = null;
+    window.history.pushState(null, '', `#${pageName}`);
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function selectSchema(schemaId) {
+  selectedSchemaId = schemaId;
+  renderSidebarList(getFilteredSchemas());
+
   const schemaMeta = catalogData.find(s => s.id === schemaId);
   if (!schemaMeta) return;
 
-  const modal = document.getElementById('inspect-modal');
-  const modalTitle = document.getElementById('modal-title');
-  const modalCode = document.getElementById('modal-code');
+  const pages = ['overview', 'values', 'roadmap', 'registry'];
+  pages.forEach(p => {
+    const el = document.getElementById(`page-${p}`);
+    if (el) el.style.display = p === 'registry' ? 'flex' : 'none';
+  });
 
-  modalTitle.textContent = `${schemaMeta.name} (${schemaMeta.version})`;
-  modalCode.textContent = 'Loading schema details...';
-  modal.classList.add('open');
+  const links = document.querySelectorAll('.nav-link');
+  links.forEach(l => {
+    if (l.getAttribute('data-page') === 'registry') {
+      l.classList.add('active');
+    } else {
+      l.classList.remove('active');
+    }
+  });
+
+  window.history.pushState(null, '', `#registry/${schemaId}`);
+
+  document.getElementById('spec-title').textContent = `${schemaMeta.name} (${schemaMeta.version})`;
+  document.getElementById('spec-meta').textContent = `Engine: ${schemaMeta.engine_family || schemaMeta.system_family} • License: ${schemaMeta.license_type} • Status: ${schemaMeta.status}`;
+
+  const copyBtn = document.getElementById('spec-copy-btn');
+  const downloadBtn = document.getElementById('spec-download-btn');
+  const jsonBlock = document.getElementById('spec-json-code');
+  const mechanicsBody = document.getElementById('spec-mechanics-body');
+
+  downloadBtn.href = schemaMeta.schema_file;
+  downloadBtn.setAttribute('download', `${schemaMeta.id}.json`);
+
+  copyBtn.onclick = () => {
+    const fullUrl = new URL(schemaMeta.schema_file, window.location.href).href;
+    navigator.clipboard.writeText(fullUrl).then(() => {
+      copyBtn.textContent = '✓ Copied Endpoint URL';
+      setTimeout(() => copyBtn.textContent = 'Copy Endpoint URL', 2000);
+    });
+  };
+
+  jsonBlock.textContent = 'Loading AST schema execution tree...';
+  switchSpecTab('json');
 
   try {
     const res = await fetch(schemaMeta.schema_file);
-    const json = await res.json();
-    modalCode.textContent = JSON.stringify(json, null, 2);
+    currentSchemaJson = await res.json();
+    jsonBlock.textContent = JSON.stringify(currentSchemaJson, null, 2);
+    renderOutcomeBranches(currentSchemaJson);
+    
+    mechanicsBody.innerHTML = `
+      This AST schema defines the deterministic execution rules for <strong>${escapeHtml(schemaMeta.name)}</strong> (${escapeHtml(schemaMeta.version)}). 
+      Function Contract: <code>${escapeHtml(schemaMeta.function_contract || 'eval')}</code>.
+      When a player triggers an action, the Project Logos core engine computes this exact formula tree without relying on probabilistic LLM text generation.
+    `;
   } catch (err) {
-    modalCode.textContent = `Error loading schema file: ${err.message}`;
+    jsonBlock.textContent = `Error loading schema details: ${err.message}`;
+    currentSchemaJson = null;
   }
 }
 
-function closeModal() {
-  document.getElementById('inspect-modal').classList.remove('open');
+function renderOutcomeBranches(json) {
+  const container = document.getElementById('spec-branches-container');
+  if (!json || !json.ast_nodes || !json.ast_nodes.evaluation) {
+    container.innerHTML = `
+      <div style="color: var(--text-muted); padding: 12px 0;">
+        No outcome branch visualizer available for this schema.
+      </div>
+    `;
+    return;
+  }
+
+  const evalObj = json.ast_nodes.evaluation;
+  const branches = evalObj.branches || evalObj.base_calculation || evalObj.degree_eval || [];
+
+  if (!branches || branches.length === 0) {
+    container.innerHTML = `
+      <div style="color: var(--text-muted); padding: 12px 0;">
+        Schema uses specialized rule evaluation nodes. See JSON specification for complete AST definition.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = branches.map(b => `
+    <div class="branch-item">
+      <div class="branch-cond">IF ${escapeHtml(JSON.stringify(b.condition))}</div>
+      <div class="branch-label">${escapeHtml(b.result || b.narrative || 'OUTCOME')}</div>
+      <div class="branch-text">${escapeHtml(b.narrative_outcome || b.narrative || '')}</div>
+    </div>
+  `).join('');
 }
 
-function copySchemaUrl(filePath, btnEl) {
-  const fullUrl = new URL(filePath, window.location.href).href;
-  navigator.clipboard.writeText(fullUrl).then(() => {
-    const origText = btnEl.textContent;
-    btnEl.textContent = '✓ Copied!';
-    setTimeout(() => btnEl.textContent = origText, 2000);
-  }).catch(err => {
-    alert(`Schema URL: ${fullUrl}`);
+function switchSpecTab(tabName) {
+  const tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach(t => t.classList.remove('active'));
+  
+  const activeTab = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+  if (activeTab) activeTab.classList.add('active');
+
+  document.getElementById('tab-view-json').style.display = tabName === 'json' ? 'block' : 'none';
+  document.getElementById('tab-view-branches').style.display = tabName === 'branches' ? 'block' : 'none';
+  document.getElementById('tab-view-mechanics').style.display = tabName === 'mechanics' ? 'block' : 'none';
+}
+
+function getFilteredSchemas() {
+  const query = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+
+  return catalogData.filter(s => {
+    return !query || 
+      s.name.toLowerCase().includes(query) ||
+      s.description.toLowerCase().includes(query) ||
+      (s.engine_family && s.engine_family.toLowerCase().includes(query)) ||
+      s.license_type.toLowerCase().includes(query);
   });
 }
 
 function setupEventListeners() {
   const searchInput = document.getElementById('search-input');
   if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      const filtered = catalogData.filter(s => 
-        s.name.toLowerCase().includes(query) ||
-        s.description.toLowerCase().includes(query) ||
-        s.system_family.toLowerCase().includes(query) ||
-        (s.tags && s.tags.some(t => t.toLowerCase().includes(query)))
-      );
-      renderSchemas(filtered);
+    searchInput.addEventListener('input', () => {
+      const filtered = getFilteredSchemas();
+      renderSidebarList(filtered);
     });
   }
 
-  const pills = document.querySelectorAll('.pill');
-  pills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      pills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      const category = pill.dataset.category;
-      
-      if (category === 'ALL') {
-        renderSchemas(catalogData);
-      } else {
-        const filtered = catalogData.filter(s => s.system_family === category || s.license_type.includes(category));
-        renderSchemas(filtered);
-      }
-    });
-  });
+  window.addEventListener('popstate', handleUrlRouting);
+}
 
-  const closeBtn = document.getElementById('modal-close-btn');
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
-  const overlay = document.getElementById('inspect-modal');
-  if (overlay) {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeModal();
-    });
+function handleUrlRouting() {
+  const hash = window.location.hash.replace('#', '');
+  if (hash.startsWith('registry/')) {
+    const schemaId = hash.replace('registry/', '');
+    if (catalogData.some(s => s.id === schemaId)) {
+      selectSchema(schemaId);
+      return;
+    }
   }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-  });
+  
+  if (hash === 'registry') {
+    navigateTo('registry');
+  } else if (hash === 'values') {
+    navigateTo('values');
+  } else if (hash === 'roadmap') {
+    navigateTo('roadmap');
+  } else {
+    navigateTo('overview');
+  }
 }
 
 function escapeHtml(str) {

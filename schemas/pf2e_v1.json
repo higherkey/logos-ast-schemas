@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "pf2e_v1",
+  "title": "Pathfinder 2e Action Adjudication AST",
+  "version": "v0.1.0",
+  "license": "OGL-1.0a",
+  "function_contract": "pf2e_eval(roll_total: int, natural_roll: int, dc: int)",
+  "ast_nodes": {
+    "root": {
+      "type": "function_call",
+      "name": "pf2e_eval",
+      "parameters": {
+        "roll_total": { "type": "binary_op", "operator": "ADD", "terms": ["d20_roll", "ability_mod", "proficiency_rank", "level_bonus"] },
+        "natural_roll": { "type": "dice_roll", "dice": "1d20" },
+        "dc": { "type": "variable", "name": "target_dc" }
+      }
+    },
+    "evaluation": {
+      "type": "degree_of_success_switch",
+      "base_calculation": [
+        { "condition": { "operator": "GTE", "threshold": "dc + 10" }, "initial_degree": 3, "result": "CRITICAL_SUCCESS" },
+        { "condition": { "operator": "GTE", "threshold": "dc" }, "initial_degree": 2, "result": "SUCCESS" },
+        { "condition": { "operator": "LTE", "threshold": "dc - 10" }, "initial_degree": 0, "result": "CRITICAL_FAILURE" },
+        { "condition": { "operator": "LT", "threshold": "dc" }, "initial_degree": 1, "result": "FAILURE" }
+      ],
+      "natural_roll_adjustments": {
+        "natural_20": { "effect": "SHIFT_DEGREE_UP", "delta": 1 },
+        "natural_1": { "effect": "SHIFT_DEGREE_DOWN", "delta": -1 }
+      }
+    }
+  }
+}
