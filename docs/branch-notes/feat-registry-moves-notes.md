@@ -1,5 +1,7 @@
 # Branch Notes: feat/registry-moves
 
+> **Status:** in-review (PR #3) · **Next:** merge; Pages redeploys and core sees the moves · **Updated:** 2026-11-16
+
 v9 M1 slice S1: registry `moves[]` for the four baseline systems, the decision-model intent candidates (v9 Document 1 §1, Document 2 §2).
 
 ## 1. Discoveries & Deviations
