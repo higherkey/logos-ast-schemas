@@ -5,6 +5,16 @@
   "version": "v0.1.0",
   "license": "CC-BY-4.0",
   "function_contract": "pbta_eval(roll_total: int)",
+  "moves": [
+    {"id":"defy_danger","name":"Defy Danger","description":"Act despite an imminent threat or push through a dangerous situation."},
+    {"id":"hack_and_slash","name":"Hack and Slash","description":"Attack an enemy in close melee combat.","stat":"str"},
+    {"id":"volley","name":"Volley","description":"Attack an enemy at range with a thrown or fired weapon.","stat":"dex"},
+    {"id":"defend","name":"Defend","description":"Stand guard over a person, item or place to protect it from harm.","stat":"con"},
+    {"id":"spout_lore","name":"Spout Lore","description":"Recall what you know about a person, place, creature or thing.","stat":"int"},
+    {"id":"discern_realities","name":"Discern Realities","description":"Closely study a situation or person to learn what is really going on.","stat":"wis"},
+    {"id":"parley","name":"Parley","description":"Use leverage to get someone to do what you want through talk.","stat":"cha"},
+    {"id":"aid_or_interfere","name":"Aid or Interfere","description":"Help or hinder another character who is making a move."}
+  ],
   "ast_nodes": {
     "root": {
       "type": "binary_op",

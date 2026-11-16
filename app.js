@@ -42,7 +42,7 @@ function renderSidebarList(schemas) {
          role="option"
          aria-selected="${s.id === selectedSchemaId}">
       <span class="item-name">${escapeHtml(s.name)}</span>
-      <div class="item-meta">${escapeHtml(s.license_type)} • ${escapeHtml(s.version)}</div>
+      <div class="item-meta">${escapeHtml(s.license_type)} • ${escapeHtml(s.version)}${s.moves_count ? ` • ${escapeHtml(String(s.moves_count))} moves` : ''}</div>
     </div>
   `).join('');
 }
@@ -101,7 +101,7 @@ async function selectSchema(schemaId) {
   window.history.pushState(null, '', `#registry/${schemaId}`);
 
   document.getElementById('spec-title').textContent = `${schemaMeta.name} (${schemaMeta.version})`;
-  document.getElementById('spec-meta').textContent = `Engine: ${schemaMeta.engine_family || schemaMeta.system_family} • License: ${schemaMeta.license_type} • Status: ${schemaMeta.status}`;
+  document.getElementById('spec-meta').textContent = `Engine: ${schemaMeta.engine_family || schemaMeta.system_family} • License: ${schemaMeta.license_type} • Status: ${schemaMeta.status}${schemaMeta.moves_count ? ` • Moves: ${schemaMeta.moves_count}` : ''}`;
 
   const copyBtn = document.getElementById('spec-copy-btn');
   const downloadBtn = document.getElementById('spec-download-btn');

@@ -5,6 +5,20 @@
   "version": "v0.1.0",
   "license": "CC-BY-3.0",
   "function_contract": "fitd_eval(rolls: List[int], is_zero_rating: bool = False)",
+  "moves": [
+    {"id":"hunt","name":"Hunt","description":"Track a target, take aim from a distance, or gather information on someone's whereabouts.","stat":"insight"},
+    {"id":"study","name":"Study","description":"Scrutinize details, research a topic, or examine a person or document closely.","stat":"insight"},
+    {"id":"survey","name":"Survey","description":"Observe a location or situation to spot threats, opportunities and exits.","stat":"insight"},
+    {"id":"tinker","name":"Tinker","description":"Build, repair, disable or modify a device, lock or mechanism.","stat":"insight"},
+    {"id":"finesse","name":"Finesse","description":"Use deft manual skill or graceful movement, such as picking a pocket or steering a vehicle.","stat":"prowess"},
+    {"id":"prowl","name":"Prowl","description":"Move unseen, sneak past guards, or climb and leap with stealth.","stat":"prowess"},
+    {"id":"skirmish","name":"Skirmish","description":"Fight an opponent in close physical combat.","stat":"prowess"},
+    {"id":"wreck","name":"Wreck","description":"Destroy, smash or blow something apart with force or sabotage.","stat":"prowess"},
+    {"id":"attune","name":"Attune","description":"Open your mind to the supernatural, sense spirits, or channel arcane energy.","stat":"resolve"},
+    {"id":"command","name":"Command","description":"Compel obedience through force of personality, intimidation or authority.","stat":"resolve"},
+    {"id":"consort","name":"Consort","description":"Socialize with friends and contacts to gain access, information or favors.","stat":"resolve"},
+    {"id":"sway","name":"Sway","description":"Persuade, charm or deceive someone with words.","stat":"resolve"}
+  ],
   "ast_nodes": {
     "root": {
       "type": "conditional_pool",

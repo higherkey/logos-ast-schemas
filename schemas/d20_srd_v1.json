@@ -4,6 +4,19 @@
   "title": "Generic d20 SRD Action AST",
   "version": "v0.1.0",
   "license": "OGL-1.0a",
+  "moves": [
+    {"id":"attack","name":"Attack","description":"Make a melee or ranged attack against a target."},
+    {"id":"cast_a_spell","name":"Cast a Spell","description":"Cast a spell, using its casting time and components."},
+    {"id":"dash","name":"Dash","description":"Gain extra movement equal to your speed for the turn."},
+    {"id":"disengage","name":"Disengage","description":"Move away without provoking opportunity attacks for the rest of the turn."},
+    {"id":"dodge","name":"Dodge","description":"Focus on avoiding attacks so attackers have disadvantage against you."},
+    {"id":"help","name":"Help","description":"Give an ally advantage on an ability check or on an attack against a nearby creature."},
+    {"id":"hide","name":"Hide","description":"Attempt to conceal yourself with a Dexterity (Stealth) check.","stat":"dex"},
+    {"id":"ready","name":"Ready","description":"Prepare an action to take as a reaction when a trigger you choose occurs."},
+    {"id":"search","name":"Search","description":"Devote your attention to finding something, often with a Perception or Investigation check.","stat":"wis"},
+    {"id":"use_an_object","name":"Use an Object","description":"Interact with an object that needs your action, such as drinking a potion."},
+    {"id":"ability_check","name":"Ability Check","description":"Attempt a task that is not covered by another action, rolling against a DC."}
+  ],
   "ast_nodes": {
     "root": {
       "type": "binary_op",

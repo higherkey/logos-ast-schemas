@@ -5,6 +5,22 @@
   "version": "v0.1.0",
   "license": "OGL-1.0a",
   "function_contract": "pf2e_eval(roll_total: int, natural_roll: int, dc: int)",
+  "moves": [
+    {"id":"strike","name":"Strike","description":"Attack a creature with a melee or ranged weapon or an unarmed attack."},
+    {"id":"stride","name":"Stride","description":"Move up to your Speed."},
+    {"id":"step","name":"Step","description":"Carefully move 5 feet without triggering reactions that are set off by movement."},
+    {"id":"raise_shield","name":"Raise a Shield","description":"Position your shield to protect yourself and gain its bonus to AC."},
+    {"id":"grapple","name":"Grapple","description":"Seize a creature and hold it in place with an Athletics check.","stat":"athletics"},
+    {"id":"trip","name":"Trip","description":"Knock a creature off its feet with an Athletics check.","stat":"athletics"},
+    {"id":"shove","name":"Shove","description":"Push a creature away from you with an Athletics check.","stat":"athletics"},
+    {"id":"demoralize","name":"Demoralize","description":"Frighten a foe with threats or a show of force using Intimidation.","stat":"intimidation"},
+    {"id":"feint","name":"Feint","description":"Mislead a foe in melee so it is off-guard against your next attack using Deception.","stat":"deception"},
+    {"id":"recall_knowledge","name":"Recall Knowledge","description":"Remember useful information about a creature, topic or situation."},
+    {"id":"seek","name":"Seek","description":"Scan an area to find hidden or undetected creatures and objects.","stat":"perception"},
+    {"id":"hide","name":"Hide","description":"Become hidden from creatures that can't clearly see you, using Stealth.","stat":"stealth"},
+    {"id":"sneak","name":"Sneak","description":"Move while staying hidden, using Stealth.","stat":"stealth"},
+    {"id":"cast_a_spell","name":"Cast a Spell","description":"Cast a spell you know or have prepared."}
+  ],
   "ast_nodes": {
     "root": {
       "type": "function_call",
