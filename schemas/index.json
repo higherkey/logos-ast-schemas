@@ -4,6 +4,7 @@
   "schemas": [
     {
       "id": "pbta_v1",
+      "moves_count": 8,
       "name": "Powered by the Apocalypse",
       "engine_family": "2d6 Move System",
       "version": "v0.1.0",
@@ -18,6 +19,7 @@
     },
     {
       "id": "fitd_v1",
+      "moves_count": 12,
       "name": "Forged in the Dark",
       "engine_family": "d6 Pool System",
       "version": "v0.1.0",
@@ -32,6 +34,7 @@
     },
     {
       "id": "pf2e_v1",
+      "moves_count": 14,
       "name": "Pathfinder 2e Action Adjudication",
       "engine_family": "d20 System",
       "version": "v0.1.0",
@@ -46,6 +49,7 @@
     },
     {
       "id": "d20_srd_v1",
+      "moves_count": 11,
       "name": "Generic d20 System Reference",
       "engine_family": "d20 System",
       "version": "v0.1.0",
