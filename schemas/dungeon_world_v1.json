@@ -105,9 +105,9 @@
   ],
   "damage": {"minor": "d4", "normal": "d6", "severe": "d10"},
   "pregens": [
-    {"id": "fighter", "class_name": "Fighter", "name": "Bronwen Ashgrove", "stats": {"STR": 2, "DEX": 0, "CON": 1, "INT": -1, "WIS": 0, "CHA": 1}, "max_hp": 11, "look": "Broad-shouldered, scarred knuckles, a dented shield painted with a faded sun."},
-    {"id": "thief", "class_name": "Thief", "name": "Pip Quillfeather", "stats": {"STR": 0, "DEX": 2, "CON": 0, "INT": 1, "WIS": -1, "CHA": 1}, "max_hp": 6, "look": "Wiry and quick-eyed, wrapped in a patched grey cloak with too many pockets."},
-    {"id": "cleric", "class_name": "Cleric", "name": "Brother Tamsin Reed", "stats": {"STR": 1, "DEX": 0, "CON": 1, "INT": 0, "WIS": 2, "CHA": -1}, "max_hp": 9, "look": "Soft-spoken and weathered, with a lantern-shaped holy symbol and ink-stained fingers."},
-    {"id": "wizard", "class_name": "Wizard", "name": "Isolde Marrowmere", "stats": {"STR": -1, "DEX": 1, "CON": 0, "INT": 2, "WIS": 1, "CHA": 0}, "max_hp": 4, "look": "Tall and pale, singed sleeves, a crooked staff hung with small brass charms."}
+    {"id": "fighter", "class_name": "Fighter", "name": "Bronwen Ashgrove", "stats": {"STR": 2, "DEX": 0, "CON": 1, "INT": -1, "WIS": 0, "CHA": 1}, "max_hp": 25, "look": "Broad-shouldered, scarred knuckles, a dented shield painted with a faded sun."},
+    {"id": "thief", "class_name": "Thief", "name": "Pip Quillfeather", "stats": {"STR": 0, "DEX": 2, "CON": 0, "INT": 1, "WIS": -1, "CHA": 1}, "max_hp": 18, "look": "Wiry and quick-eyed, wrapped in a patched grey cloak with too many pockets."},
+    {"id": "cleric", "class_name": "Cleric", "name": "Brother Tamsin Reed", "stats": {"STR": 1, "DEX": 0, "CON": 1, "INT": 0, "WIS": 2, "CHA": -1}, "max_hp": 21, "look": "Soft-spoken and weathered, with a lantern-shaped holy symbol and ink-stained fingers."},
+    {"id": "wizard", "class_name": "Wizard", "name": "Isolde Marrowmere", "stats": {"STR": -1, "DEX": 1, "CON": 0, "INT": 2, "WIS": 1, "CHA": 0}, "max_hp": 16, "look": "Tall and pale, singed sleeves, a crooked staff hung with small brass charms."}
   ]
 }

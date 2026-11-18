@@ -18,7 +18,7 @@
     {
       "id": "undercroft",
       "name": "The Undercroft Barracks",
-      "description": "Flooded cellars where the old garrison slept. Cold water is ankle-deep. Empty cots, chalk tally marks by every sentry post, and a sealed door painted with a faded sun. The dead stand at their posts here in the dark, rigid and patient."
+      "description": "Flooded cellars where the old garrison slept. Cold water is ankle-deep. Empty cots, chalk tally marks by every sentry post, and a sealed door painted with a faded sun. The dead march their rounds here in the dark, rigid and patient, boots slapping the water."
     },
     {
       "id": "beacon_crown",
@@ -42,7 +42,7 @@
     {
       "id": "corvin_dray",
       "name": "Corvin Dray",
-      "description": "A charming scavenger in a stolen watchman's cloak, lurking near the brazier with a heavy pack. Nervous, talkative, and quick with a knife.",
+      "description": "A charming scavenger in a stolen watchman's cloak, lurking near the brazier with a heavy pack. Nervous, talkative, and quick with a knife. Corvin took the heart after Brannoc fled.",
       "wants": "To slip away with the Ember-Heart, the glowing coal that fed the beacon, and sell it to a collector before anyone realises it matters."
     }
   ],

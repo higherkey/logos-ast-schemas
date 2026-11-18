@@ -21,30 +21,63 @@ function requireKeys(obj, keys, file, id) {
   for (const k of keys) if (obj[k] === undefined || obj[k] === null) fail(file, id, `missing key "${k}"`);
 }
 
-function uniqueIds(list, file, what) {
+// Returns only object items; a null/non-object item is a clean FAIL instead of a TypeError.
+function items(list, file, what) {
+  if (list === undefined || list === null) return [];
+  if (!Array.isArray(list)) { fail(file, what, 'not an array'); return []; }
+  return list.filter((x, i) => {
+    const ok = x !== null && typeof x === 'object' && !Array.isArray(x);
+    if (!ok) fail(file, what, `item ${i} is not an object`);
+    return ok;
+  });
+}
+
+// Fails on duplicate ids within and across the given lists.
+function uniqueIds(lists, file, what) {
   const seen = new Set();
-  for (const item of list ?? []) {
-    if (seen.has(item?.id)) fail(file, item?.id, `duplicate ${what} id`);
-    seen.add(item?.id);
+  for (const item of lists.flat()) {
+    if (seen.has(item.id)) fail(file, item.id, `duplicate ${what} id`);
+    seen.add(item.id);
   }
 }
 
 const nonEmpty = (s) => typeof s === 'string' && s.trim() !== '';
 
+const REQUIRED_MOVES = {
+  hack_and_slash: 'STR', volley: 'DEX', defy_danger: 'varies', defend: 'CON', spout_lore: 'INT',
+  discern_realities: 'WIS', parley: 'CHA', aid_or_interfere: 'none', last_breath: 'none',
+};
+const REQUIRED_GM_MOVES = [
+  'show_signs', 'deal_damage', 'use_up_resources', 'turn_move_back', 'separate_them', 'give_opportunity',
+  'show_downside', 'offer_cost', 'tell_requirements', 'reveal_truth', 'use_location_move', 'put_in_spot',
+];
+const REQUIRED_PREGENS = ['fighter', 'thief', 'cleric', 'wizard'];
+
 function checkDungeonWorld(s, file) {
   requireKeys(s, ['id', 'title', 'version', 'license', 'attribution', 'moves', 'gm_moves', 'damage', 'pregens'], file, s.id);
-  uniqueIds(s.moves, file, 'move');
-  uniqueIds(s.gm_moves, file, 'gm_move');
-  uniqueIds(s.pregens, file, 'pregen');
-  for (const m of s.moves ?? []) {
+  const moves = items(s.moves, file, 'moves');
+  const gmMoves = items(s.gm_moves, file, 'gm_moves');
+  const pregens = items(s.pregens, file, 'pregens');
+  uniqueIds([moves], file, 'move');
+  uniqueIds([gmMoves], file, 'gm_move');
+  uniqueIds([pregens], file, 'pregen');
+  for (const [id, stat] of Object.entries(REQUIRED_MOVES)) {
+    const m = moves.find((x) => x.id === id);
+    if (!m) fail(file, id, 'required move is missing');
+    else if (m.stat !== stat) fail(file, id, `stat is "${m.stat}", expected "${stat}"`);
+  }
+  for (const id of REQUIRED_GM_MOVES) if (!gmMoves.some((x) => x.id === id)) fail(file, id, 'required GM move is missing');
+  for (const id of REQUIRED_PREGENS) if (!pregens.some((x) => x.id === id)) fail(file, id, 'required pregen is missing');
+  for (const m of moves) {
     requireKeys(m, ['id', 'name', 'description', 'stat', 'outcomes'], file, m.id);
     if (!STATS.has(m.stat)) fail(file, m.id, `invalid stat "${m.stat}"`);
     for (const t of ['strong', 'weak', 'miss']) if (!nonEmpty(m.outcomes?.[t])) fail(file, m.id, `empty outcome "${t}"`);
   }
-  for (const g of s.gm_moves ?? []) requireKeys(g, ['id', 'name', 'description'], file, g.id);
+  for (const g of gmMoves) requireKeys(g, ['id', 'name', 'description'], file, g.id);
   for (const k of ['minor', 'normal', 'severe']) if (!nonEmpty(s.damage?.[k])) fail(file, 'damage', `missing "${k}"`);
-  for (const p of s.pregens ?? []) {
+  for (const p of pregens) {
     requireKeys(p, ['id', 'class_name', 'name', 'stats', 'max_hp', 'look'], file, p.id);
+    if (!Number.isInteger(p.max_hp) || p.max_hp <= 0) fail(file, p.id, `max_hp "${p.max_hp}" is not a positive integer`);
     for (const st of ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'])
       if (!Number.isInteger(p.stats?.[st])) fail(file, p.id, `stat "${st}" is not an integer`);
   }
@@ -53,15 +86,19 @@ function checkDungeonWorld(s, file) {
 function checkPack(p, file, schemaIds) {
   requireKeys(p, ['id', 'title', 'system_id', 'license', 'opening_scene', 'locations', 'npcs', 'threats', 'gm_notes'], file, p.id);
   if (!schemaIds.has(p.system_id)) fail(file, p.id, `system_id "${p.system_id}" is not an indexed schema`);
-  const known = new Set([...(p.locations ?? []), ...(p.npcs ?? []), ...(p.threats ?? [])].map((x) => x.id));
-  const locs = new Set((p.locations ?? []).map((x) => x.id));
+  const locations = items(p.locations, file, 'locations');
+  const npcs = items(p.npcs, file, 'npcs');
+  const threats = items(p.threats, file, 'threats');
+  uniqueIds([locations, npcs, threats], file, 'pack entity');
+  const known = new Set([...locations, ...npcs, ...threats].map((x) => x.id));
+  const locs = new Set(locations.map((x) => x.id));
   const os = p.opening_scene ?? {};
   requireKeys(os, ['location_id', 'title', 'summary', 'entity_ids'], file, 'opening_scene');
   if (!locs.has(os.location_id)) fail(file, 'opening_scene', `unknown location_id "${os.location_id}"`);
   for (const e of os.entity_ids ?? []) if (!known.has(e)) fail(file, 'opening_scene', `unknown entity_id "${e}"`);
-  for (const l of p.locations ?? []) requireKeys(l, ['id', 'name', 'description'], file, l.id);
-  for (const n of p.npcs ?? []) requireKeys(n, ['id', 'name', 'description', 'wants'], file, n.id);
-  for (const t of p.threats ?? []) requireKeys(t, ['id', 'text'], file, t.id);
+  for (const l of locations) requireKeys(l, ['id', 'name', 'description'], file, l.id);
+  for (const n of npcs) requireKeys(n, ['id', 'name', 'description', 'wants'], file, n.id);
+  for (const t of threats) requireKeys(t, ['id', 'text'], file, t.id);
 }
 
 const schemaIndex = load('schemas/index.json');
@@ -70,7 +107,7 @@ const schemaIds = new Set();
 let schemaCount = 0;
 let campCount = 0;
 
-for (const entry of schemaIndex?.schemas ?? []) {
+for (const entry of items(schemaIndex?.schemas, 'schemas/index.json', 'schemas')) {
   schemaIds.add(entry.id);
   const file = entry.schema_file;
   if (!file) { fail('schemas/index.json', entry.id, 'missing schema_file'); continue; }
@@ -81,7 +118,7 @@ for (const entry of schemaIndex?.schemas ?? []) {
   if (entry.id === 'dungeon_world_v1') checkDungeonWorld(s, file);
 }
 
-for (const entry of campIndex?.campaigns ?? []) {
+for (const entry of items(campIndex?.campaigns, 'campaigns/index.json', 'campaigns')) {
   const p = load(entry.pack_file);
   if (!p) continue;
   campCount++;
