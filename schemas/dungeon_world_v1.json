@@ -84,7 +84,7 @@
       "description": "When a character drops to zero HP, they glimpse death and roll to see what happens next. No stat applies.",
       "outcomes": {
         "strong": "You cheat death and stabilise at 1 HP.",
-        "weak": "Death offers a bargain; take it and stabilise, or refuse and pass.",
+        "weak": "Death offers a bargain and you take it: you stabilise at 1 HP, and the GM names the price you will pay.",
         "miss": "Your time has come."
       }
     }
