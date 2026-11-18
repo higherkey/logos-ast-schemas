@@ -61,6 +61,21 @@
       "schema_file": "schemas/d20_srd_v1.json",
       "function_contract": "d20_eval(roll_total: int, dc: int, advantage_state: str = 'NORMAL')",
       "operators": ["1d20", "advantage_disadvantage", "gte_dc", "nat_20", "nat_1"]
+    },
+    {
+      "id": "dungeon_world_v1",
+      "moves_count": 9,
+      "name": "Dungeon World",
+      "engine_family": "2d6 Move System",
+      "version": "v0.1.0",
+      "license": "Creative Commons Attribution 3.0",
+      "license_type": "CC-BY-3.0",
+      "status": "Community Baseline",
+      "author": "Project Logos Community",
+      "description": "Dungeon World basic moves, GM moves, damage dice and four pregenerated characters, summarised in original wording for GM-less table play.",
+      "schema_file": "schemas/dungeon_world_v1.json",
+      "function_contract": "pbta_eval(roll_total: int)",
+      "operators": ["2d6", "add", "gte_10", "between_7_9", "lte_6"]
     }
   ]
 }

@@ -1,0 +1,72 @@
+{
+  "id": "ruined-watchtower",
+  "title": "The Ruined Watchtower",
+  "system_id": "dungeon_world_v1",
+  "license": "CC-BY-4.0",
+  "opening_scene": {
+    "location_id": "gatehouse",
+    "title": "Dusk at Harrowmere Watch",
+    "summary": "Fog is climbing the pass, and the old beacon above has burned an eerie green for two nights. Reeve Odalys Pennick has led the party to the broken gatehouse and keeps glancing up at the glow. The winter grain caravan reaches the pass at tomorrow's dusk, and the pass is only safe when the beacon burns true.",
+    "entity_ids": ["reeve_odalys", "hollow_watch"]
+  },
+  "locations": [
+    {
+      "id": "gatehouse",
+      "name": "The Gatehouse and Courtyard",
+      "description": "A collapsed arch and a courtyard of wet grass. Green sparks drift down from the tower top. Rusted helmets lie in a tidy row, as though someone careful set them out. A spiral stair climbs to the crown, and an iron grate leads down to the undercroft."
+    },
+    {
+      "id": "undercroft",
+      "name": "The Undercroft Barracks",
+      "description": "Flooded cellars where the old garrison slept. Cold water is ankle-deep. Empty cots, chalk tally marks by every sentry post, and a sealed door painted with a faded sun. The dead march their rounds here in the dark, rigid and patient, boots slapping the water."
+    },
+    {
+      "id": "beacon_crown",
+      "name": "The Beacon Crown",
+      "description": "The open roof, ringed by crumbling battlements. A great iron brazier burns green at its centre. Beside it is an empty socket where a glowing coal once rested. The wind carries the echo of old watch-calls."
+    }
+  ],
+  "npcs": [
+    {
+      "id": "reeve_odalys",
+      "name": "Reeve Odalys Pennick",
+      "description": "Brisk, sun-browned leader of Thistledown village in a muddy riding coat. Far too calm about the green fire, and quick to change the subject when asked who kept the beacon.",
+      "wants": "The beacon relit quietly before the caravan arrives, and nobody learning what it was really for."
+    },
+    {
+      "id": "brannoc_vell",
+      "name": "Brannoc Vell",
+      "description": "The last keeper of the beacon: a gaunt old man hiding in the undercroft's one dry corner, ash on his hands and fear in his eyes. He ran when the dead began to stand.",
+      "wants": "Absolution. He abandoned his post and hopes someone else will finish what he could not, without making him admit it."
+    },
+    {
+      "id": "corvin_dray",
+      "name": "Corvin Dray",
+      "description": "A charming scavenger in a stolen watchman's cloak, lurking near the brazier with a heavy pack. Nervous, talkative, and quick with a knife. Corvin took the heart after Brannoc fled.",
+      "wants": "To slip away with the Ember-Heart, the glowing coal that fed the beacon, and sell it to a collector before anyone realises it matters."
+    }
+  ],
+  "threats": [
+    {
+      "id": "hollow_watch",
+      "text": "The Hollow Watch: the garrison's dead have risen at their posts and keep marching their rounds. By moonrise they will march down the pass to the village unless they are relieved."
+    },
+    {
+      "id": "cooling_heart",
+      "text": "The Cooling Ember-Heart: the stolen coal is losing its warmth. When it goes cold the ward breaks for good and the Hollow Watch can never be laid to rest."
+    }
+  ],
+  "gm_notes": [
+    "Length and shape: for two players, plan 2-3 hours in three acts of roughly 45-60 minutes. Act 1 is the courtyard and the climb. Act 2 is Corvin on the crown and the undercroft. Act 3 is the choice at the brazier. If time runs short, jump straight to the choice.",
+    "Stakes: if the beacon is not tended by moonrise, the Hollow Watch descends on Thistledown and the caravan walks into the pass blind. If it is relit, the village is safe, but someone must pay for it. Make the cost clear before the final roll.",
+    "Opening hook: the beacon turned green two nights ago and the village's dogs will not stop howling. Reeve Odalys offers silver and a season's goodwill to relight it before tomorrow's dusk. She does not mention the dead, the Ember-Heart or the keeper.",
+    "The twist, revealed through Discern Realities, Spout Lore, Brannoc or the chalk marks: Harrowmere Watch was never a lighthouse. It was a ward. The beacon's ember kept the garrison's dead asleep. The green flame is no fault; it is the dead sentries' own signal fire, calling for relief because Brannoc fled and nobody replaced him. The Reeve knew all along.",
+    "The dead are dutiful, not mindless. A character may Parley with the Hollow Watch and swear a relief oath, which makes them stand down. On a weak hit the oath has a cost: someone keeps the watch for a night, or leaves something precious at the post.",
+    "Three ways to end it: (1) return the Ember-Heart to its socket and light the brazier, which needs a living keeper to tend it; (2) swear a relief oath and release the Hollow Watch, which frees them but dims the ward; (3) break the ward and flee. Show the consequences for the village and the caravan whichever they choose.",
+    "Corvin is not a villain. If the party Parleys well he trades the Ember-Heart for safe passage. If threatened he runs along the broken battlements. Mention the heart's warmth fading while he flees.",
+    "Brannoc gives the party the keeper's tongs and the story of the first night if they speak kindly. He cannot bring himself to go back down. His guilt makes good fuel for Discern Realities answers.",
+    "Pace the two threats: roughly once per half hour of table time, use a GM move that advances the Hollow Watch (show signs, then deal damage) or the cooling Ember-Heart (use up resources, put someone in a spot). Do not advance both in the same turn.",
+    "Damage: sentry blows are normal (d6). Falling masonry, collapsing battlements or touching the green fire are severe (d10). Cold water, stumbles and small scrapes are minor (d4).",
+    "Tone: spooky and a little sad, with room for humour. The dead are tired, not evil. Steer toward a good decision, not a fight to the death."
+  ]
+}

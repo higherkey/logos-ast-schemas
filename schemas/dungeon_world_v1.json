@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "dungeon_world_v1",
+  "title": "Dungeon World Moves (summarised)",
+  "version": "v0.1.0",
+  "license": "CC-BY-3.0",
+  "attribution": "Dungeon World by Sage LaTorra and Adam Koebel, CC BY 3.0. Summarised and reworded by Project Logos; not the original text.",
+  "function_contract": "pbta_eval(roll_total: int)",
+  "moves": [
+    {
+      "id": "hack_and_slash", "name": "Hack and Slash", "stat": "STR",
+      "description": "Attack an enemy in close combat.",
+      "outcomes": {
+        "strong": "You hit and deal your damage. You may also press the attack for extra damage, at the price of leaving yourself open to a counterblow.",
+        "weak": "You hit and deal your damage, but the enemy hits back or you end up in a bad position.",
+        "miss": "The attack fails and the GM makes a move against you."
+      }
+    },
+    {
+      "id": "volley", "name": "Volley", "stat": "DEX",
+      "description": "Attack an enemy from a distance with a thrown or fired weapon.",
+      "outcomes": {
+        "strong": "A clean shot: you hit and deal your damage.",
+        "weak": "You hit, but you also pick a cost: step into danger, settle for a worse shot, or spend extra ammunition.",
+        "miss": "The shot goes wide or does no good, and the GM makes a move against you."
+      }
+    },
+    {
+      "id": "defy_danger", "name": "Defy Danger", "stat": "varies",
+      "description": "Act despite a looming danger. The stat depends on how you face it: strength, agility, toughness, wits, insight or charm.",
+      "outcomes": {
+        "strong": "You do it, and the danger does not touch you.",
+        "weak": "You do it, but the GM offers a worse outcome, hard bargain, or ugly choice.",
+        "miss": "The danger lands. The GM makes a move against you and things get worse."
+      }
+    },
+    {
+      "id": "defend", "name": "Defend", "stat": "CON",
+      "description": "Guard a person, place or thing against an incoming threat.",
+      "outcomes": {
+        "strong": "You hold the line and earn several benefits from the GM's list, such as redirecting the attack, taking the hit yourself, or gaining an opening.",
+        "weak": "You hold, but earn only a small benefit, and the threat still costs you.",
+        "miss": "Your guard breaks. What you were protecting is exposed and the GM makes a move."
+      }
+    },
+    {
+      "id": "spout_lore", "name": "Spout Lore", "stat": "INT",
+      "description": "Call on what you know about a creature, place, legend or object.",
+      "outcomes": {
+        "strong": "The GM tells you something useful and interesting about the subject, and how it bears on your situation.",
+        "weak": "The GM tells you something interesting; whether it is useful is for you to work out.",
+        "miss": "Your memory fails or misleads you, and the GM makes a move."
+      }
+    },
+    {
+      "id": "discern_realities", "name": "Discern Realities", "stat": "WIS",
+      "description": "Study a scene or a person closely to see what is really going on.",
+      "outcomes": {
+        "strong": "You may ask the GM several honest questions about the scene and use the answers.",
+        "weak": "You may ask the GM one honest question about the scene.",
+        "miss": "You notice little, and the GM makes a move."
+      }
+    },
+    {
+      "id": "parley", "name": "Parley", "stat": "CHA",
+      "description": "Use leverage, a promise or a threat to talk someone into doing what you want.",
+      "outcomes": {
+        "strong": "They do what you ask, in return for what you promised or threatened.",
+        "weak": "They will do it, but only after you give proof, a deposit, or a firm guarantee.",
+        "miss": "Talk fails, the GM makes a move, and the other side may turn hostile."
+      }
+    },
+    {
+      "id": "aid_or_interfere", "name": "Aid or Interfere", "stat": "none",
+      "description": "Help or hinder another character who is acting. This table plays without bonds, so the roll has no stat bonus.",
+      "outcomes": {
+        "strong": "Your help lands: they get a bonus on their roll (or a penalty, if you interfered).",
+        "weak": "Your help lands, but you share the danger or cost of their action.",
+        "miss": "You get in the way or stumble, and the GM makes a move against you."
+      }
+    },
+    {
+      "id": "last_breath", "name": "Last Breath", "stat": "none",
+      "description": "When a character drops to zero HP, they glimpse death and roll to see what happens next. No stat applies.",
+      "outcomes": {
+        "strong": "You cheat death and stabilise at 1 HP.",
+        "weak": "Death offers a bargain; take it and stabilise, or refuse and pass.",
+        "miss": "Your time has come."
+      }
+    }
+  ],
+  "gm_moves": [
+    {"id": "show_signs", "name": "Show Signs of an Approaching Threat", "description": "Hint that something dangerous is coming before it arrives."},
+    {"id": "deal_damage", "name": "Deal Damage", "description": "Hurt a character, with the amount set by the source of the harm."},
+    {"id": "use_up_resources", "name": "Use Up Their Resources", "description": "Drain ammunition, supplies, light or something else the party is relying on."},
+    {"id": "turn_move_back", "name": "Turn Their Move Back on Them", "description": "Take what the character just did or tried and reflect it against them."},
+    {"id": "separate_them", "name": "Separate Them", "description": "Split the party apart, by distance, barrier or circumstance."},
+    {"id": "give_opportunity", "name": "Give an Opportunity", "description": "Offer a chance that fits a character's strengths, nature or goals."},
+    {"id": "show_downside", "name": "Show a Downside to Their Class or Race", "description": "Let a character's strengths or traits work against them in this moment."},
+    {"id": "offer_cost", "name": "Offer an Opportunity with a Cost", "description": "Present something the party wants, at a price they must decide whether to pay."},
+    {"id": "tell_requirements", "name": "Tell Them the Requirements or Consequences", "description": "Lay out what it would take, or what will follow, then ask what they do."},
+    {"id": "reveal_truth", "name": "Reveal an Unwelcome Truth", "description": "Surface a hidden fact that complicates matters."},
+    {"id": "use_location_move", "name": "Use a Location or Environment Move", "description": "Let the place itself act: collapse, flood, darkness, sound or a trap."},
+    {"id": "put_in_spot", "name": "Put Someone in a Spot", "description": "Place a character in immediate danger or a hard choice, and make them act."}
+  ],
+  "damage": {"minor": "d4", "normal": "d6", "severe": "d10"},
+  "pregens": [
+    {"id": "fighter", "class_name": "Fighter", "name": "Bronwen Ashgrove", "stats": {"STR": 2, "DEX": 0, "CON": 1, "INT": -1, "WIS": 0, "CHA": 1}, "max_hp": 25, "look": "Broad-shouldered, scarred knuckles, a dented shield painted with a faded sun."},
+    {"id": "thief", "class_name": "Thief", "name": "Pip Quillfeather", "stats": {"STR": 0, "DEX": 2, "CON": 0, "INT": 1, "WIS": -1, "CHA": 1}, "max_hp": 18, "look": "Wiry and quick-eyed, wrapped in a patched grey cloak with too many pockets."},
+    {"id": "cleric", "class_name": "Cleric", "name": "Brother Tamsin Reed", "stats": {"STR": 1, "DEX": 0, "CON": 1, "INT": 0, "WIS": 2, "CHA": -1}, "max_hp": 21, "look": "Soft-spoken and weathered, with a lantern-shaped holy symbol and ink-stained fingers."},
+    {"id": "wizard", "class_name": "Wizard", "name": "Isolde Marrowmere", "stats": {"STR": -1, "DEX": 1, "CON": 0, "INT": 2, "WIS": 1, "CHA": 0}, "max_hp": 16, "look": "Tall and pale, singed sleeves, a crooked staff hung with small brass charms."}
+  ]
+}
