@@ -76,8 +76,14 @@ function checkDungeonWorld(s, file) {
   for (const g of gmMoves) requireKeys(g, ['id', 'name', 'description'], file, g.id);
   for (const k of ['minor', 'normal', 'severe']) if (!nonEmpty(s.damage?.[k])) fail(file, 'damage', `missing "${k}"`);
   for (const p of pregens) {
-    requireKeys(p, ['id', 'class_name', 'name', 'stats', 'max_hp', 'look'], file, p.id);
+    requireKeys(p, ['id', 'class_name', 'name', 'stats', 'max_hp', 'look', 'damage_die', 'armor', 'alignment', 'gear', 'bonds', 'class_moves'], file, p.id);
     if (!Number.isInteger(p.max_hp) || p.max_hp <= 0) fail(file, p.id, `max_hp "${p.max_hp}" is not a positive integer`);
+    if (!Number.isInteger(p.armor) || p.armor < 0) fail(file, p.id, `armor "${p.armor}" is not a non-negative integer`);
+    if (!nonEmpty(p.damage_die)) fail(file, p.id, 'damage_die must be non-empty');
+    if (!p.alignment || !nonEmpty(p.alignment.name) || !nonEmpty(p.alignment.description)) fail(file, p.id, 'alignment needs name and description');
+    if (!Array.isArray(p.gear) || p.gear.length === 0) fail(file, p.id, 'gear must be a non-empty array');
+    if (!Array.isArray(p.bonds) || p.bonds.length === 0) fail(file, p.id, 'bonds must be a non-empty array');
+    for (const cm of items(p.class_moves, file, `${p.id}.class_moves`)) requireKeys(cm, ['name', 'description'], file, p.id);
     for (const st of ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'])
       if (!Number.isInteger(p.stats?.[st])) fail(file, p.id, `stat "${st}" is not an integer`);
   }
@@ -85,6 +91,9 @@ function checkDungeonWorld(s, file) {
 
 function checkPack(p, file, schemaIds) {
   requireKeys(p, ['id', 'title', 'system_id', 'license', 'opening_scene', 'locations', 'npcs', 'threats', 'gm_notes'], file, p.id);
+  if (p.player_intro !== undefined && p.player_intro !== null) {
+    requireKeys(p.player_intro, ['tagline', 'premise', 'whats_at_stake', 'how_to_play'], file, 'player_intro');
+  }
   if (!schemaIds.has(p.system_id)) fail(file, p.id, `system_id "${p.system_id}" is not an indexed schema`);
   const locations = items(p.locations, file, 'locations');
   const npcs = items(p.npcs, file, 'npcs');

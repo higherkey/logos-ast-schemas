@@ -3,6 +3,19 @@
   "title": "The Ruined Watchtower",
   "system_id": "dungeon_world_v1",
   "license": "CC-BY-4.0",
+  "player_intro": {
+    "tagline": "An eerie green fire burns atop Harrowmere Watch, and the winter grain caravan arrives tomorrow.",
+    "premise": "You are a band of hired adventurers travelling through the misty foothills toward the mountain village of Thistledown. Two nights ago, the old stone beacon at Harrowmere Watch—supposedly long abandoned—suddenly flared to life with a sickly green flame. Ever since, the village dogs haven't stopped howling, and travelers refuse to take the high pass. Reeve Odalys Pennick, Thistledown's brisk and pragmatic leader, has hired you with silver and a promise of a season's shelter to climb the pass, find out why the beacon is burning green, and restore its true amber light before the winter grain caravan arrives at tomorrow's dusk.",
+    "whats_at_stake": [
+      "If the beacon isn't burning true by moonrise, the winter grain caravan will walk into the pass blind—and Thistledown will face a bitter winter.",
+      "Something else is stirring inside the old watchtower: the Reeve seemed nervous on the climb up, and she hasn't told you everything about who used to keep the tower."
+    ],
+    "how_to_play": [
+      "Describe what your character does in plain words—don't worry about naming rules. Logos will tell you when a Move triggers and roll 2d6 + your stat.",
+      "10+ is a clean success. 7–9 means you succeed, but with a cost or complication. 6- means things escalate and the GM makes a move.",
+      "Check your character's Gear, Bonds, and Class Moves in the Party panel for ideas on how to tackle problems or play off your teammates."
+    ]
+  },
   "opening_scene": {
     "location_id": "gatehouse",
     "title": "Dusk at Harrowmere Watch",
