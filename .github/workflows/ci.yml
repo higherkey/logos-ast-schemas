@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_call:  # deploy.yml runs this before publishing
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/validate-content.mjs
+
+  pr-hygiene:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: PR title follows Conventional Commits
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          echo "$TITLE" | grep -Eq '^(feat|fix|docs|chore|refactor|test|perf|ci|build|style|revert)(\([^)]+\))?!?: .+' \
+            || { echo "::error::PR title must follow Conventional Commits: $TITLE"; exit 1; }
+      - name: Prefixed branch has branch notes
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          if echo "$BRANCH" | grep -Eq '^[a-z]+/'; then
+            f="docs/branch-notes/${BRANCH//\//-}-notes.md"
+            test -f "$f" || { echo "::error::Missing $f"; exit 1; }
+          fi
