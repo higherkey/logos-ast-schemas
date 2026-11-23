@@ -1,5 +1,5 @@
 // Validates schemas and campaign packs listed in schemas/index.json and campaigns/index.json.
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -115,7 +115,14 @@ for (const entry of items(schemaIndex?.schemas, 'schemas/index.json', 'schemas')
   if (!s) continue;
   schemaCount++;
   if (s.id !== entry.id) fail(file, entry.id, `id mismatch "${s.id}"`);
+  if (entry.moves_count !== s.moves?.length) fail('schemas/index.json', entry.id, `moves_count ${entry.moves_count} but ${file} has ${s.moves?.length} moves`);
   if (entry.id === 'dungeon_world_v1') checkDungeonWorld(s, file);
+}
+
+// Every schema file on disk must be listed, or Pages serves it with no catalog entry.
+const listed = new Set(items(schemaIndex?.schemas, 'schemas/index.json', 'schemas').map((e) => e.schema_file));
+for (const f of readdirSync(join(root, 'schemas'))) {
+  if (f.endsWith('.json') && f !== 'index.json' && !listed.has(`schemas/${f}`)) fail('schemas/index.json', null, `schemas/${f} is not listed`);
 }
 
 for (const entry of items(campIndex?.campaigns, 'campaigns/index.json', 'campaigns')) {
