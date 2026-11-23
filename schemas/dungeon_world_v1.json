@@ -105,9 +105,118 @@
   ],
   "damage": {"minor": "d4", "normal": "d6", "severe": "d10"},
   "pregens": [
-    {"id": "fighter", "class_name": "Fighter", "name": "Bronwen Ashgrove", "stats": {"STR": 2, "DEX": 0, "CON": 1, "INT": -1, "WIS": 0, "CHA": 1}, "max_hp": 25, "look": "Broad-shouldered, scarred knuckles, a dented shield painted with a faded sun."},
-    {"id": "thief", "class_name": "Thief", "name": "Pip Quillfeather", "stats": {"STR": 0, "DEX": 2, "CON": 0, "INT": 1, "WIS": -1, "CHA": 1}, "max_hp": 18, "look": "Wiry and quick-eyed, wrapped in a patched grey cloak with too many pockets."},
-    {"id": "cleric", "class_name": "Cleric", "name": "Brother Tamsin Reed", "stats": {"STR": 1, "DEX": 0, "CON": 1, "INT": 0, "WIS": 2, "CHA": -1}, "max_hp": 21, "look": "Soft-spoken and weathered, with a lantern-shaped holy symbol and ink-stained fingers."},
-    {"id": "wizard", "class_name": "Wizard", "name": "Isolde Marrowmere", "stats": {"STR": -1, "DEX": 1, "CON": 0, "INT": 2, "WIS": 1, "CHA": 0}, "max_hp": 16, "look": "Tall and pale, singed sleeves, a crooked staff hung with small brass charms."}
+    {
+      "id": "fighter",
+      "class_name": "Fighter",
+      "name": "Bronwen Ashgrove",
+      "stats": {"STR": 2, "DEX": 0, "CON": 1, "INT": -1, "WIS": 0, "CHA": 1},
+      "max_hp": 25,
+      "damage_die": "d10",
+      "armor": 2,
+      "alignment": {"name": "Good", "description": "Defend those weaker than you."},
+      "look": "Broad-shouldered, scarred knuckles, a dented shield painted with a faded sun.",
+      "gear": [
+        "Sun-crested greatsword (signature weapon: messy, forceful, +1 damage)",
+        "Dented shield (+1 armor)",
+        "Chainmail (1 armor)",
+        "Dungeon rations (5 uses)",
+        "2 healing potions (heal 1d8 HP each)"
+      ],
+      "bonds": [
+        "Brother Tamsin Reed once tended my wounds when I should have died; I owe them my shield.",
+        "Pip Quillfeather knows how to slip past trouble I only know how to smash through.",
+        "Isolde Marrowmere's magic unnerves me, though I trust her in a tight spot."
+      ],
+      "class_moves": [
+        {"name": "Bend Bars, Lift Gates", "description": "When you use pure strength to destroy an inanimate obstacle, roll+STR."},
+        {"name": "Armored", "description": "Ignore the clumsy tag on armor you wear."},
+        {"name": "Signature Weapon", "description": "Your sun-crested greatsword is honed for heavy blows and smashing shields."}
+      ]
+    },
+    {
+      "id": "thief",
+      "class_name": "Thief",
+      "name": "Pip Quillfeather",
+      "stats": {"STR": 0, "DEX": 2, "CON": 0, "INT": 1, "WIS": -1, "CHA": 1},
+      "max_hp": 18,
+      "damage_die": "d8",
+      "armor": 1,
+      "alignment": {"name": "Chaotic", "description": "Leap into danger without a plan."},
+      "look": "Wiry and quick-eyed, wrapped in a patched grey cloak with too many pockets.",
+      "gear": [
+        "Short sword (close)",
+        "3 throwing daggers (near, thrown)",
+        "Leather armor (1 armor)",
+        "Thieves' tools (lockpicks, wire, small mirror)",
+        "50 ft of hemp rope & grappling hook",
+        "Dungeon rations (5 uses)"
+      ],
+      "bonds": [
+        "I stole a silver trinket from Bronwen Ashgrove once; she hasn't noticed yet.",
+        "Isolde Marrowmere and I have an unspoken deal: she distracts, I pocket.",
+        "Brother Tamsin Reed thinks I can be redeemed—I'm curious to see them try."
+      ],
+      "class_moves": [
+        {"name": "Trap Expert", "description": "When you spend a moment to survey a dangerous area for traps, roll+DEX."},
+        {"name": "Tricks of the Trade", "description": "When you pick locks or pockets or disable traps, roll+DEX."},
+        {"name": "Backstab", "description": "When you attack a surprised or defenseless enemy with a melee weapon, you can deal your damage or roll+DEX for extra effect."}
+      ]
+    },
+    {
+      "id": "cleric",
+      "class_name": "Cleric",
+      "name": "Brother Tamsin Reed",
+      "stats": {"STR": 1, "DEX": 0, "CON": 1, "INT": 0, "WIS": 2, "CHA": -1},
+      "max_hp": 21,
+      "damage_die": "d6",
+      "armor": 2,
+      "alignment": {"name": "Good", "description": "Endanger yourself to heal another."},
+      "look": "Soft-spoken and weathered, with a lantern-shaped holy symbol and ink-stained fingers.",
+      "gear": [
+        "Iron-shod staff / mace (close)",
+        "Lantern-shaped silver holy symbol",
+        "Chainmail (1 armor) & wooden shield (+1 armor)",
+        "Bandages & poultices (3 uses, slow)",
+        "Dungeon rations (5 uses)"
+      ],
+      "bonds": [
+        "Bronwen Ashgrove has seen too much war; I pray her heart stays gentle.",
+        "Pip Quillfeather is always one step from a snare—someone has to keep watch over them.",
+        "Isolde Marrowmere asks questions about the dead that make me uneasy."
+      ],
+      "class_moves": [
+        {"name": "Cast a Spell (WIS)", "description": "Cast prepared prayers like Cure Light Wounds (heal 1d8 HP), Bless (+1 forward), or Light."},
+        {"name": "Turn Undead", "description": "Hold your holy symbol aloft and call on your deity to drive back the restless dead (roll+WIS)."},
+        {"name": "Deity: The Lantern-Bearer", "description": "You serve the keeper of thresholds, guiding lost souls and guarding the living."}
+      ]
+    },
+    {
+      "id": "wizard",
+      "class_name": "Wizard",
+      "name": "Isolde Marrowmere",
+      "stats": {"STR": -1, "DEX": 1, "CON": 0, "INT": 2, "WIS": 1, "CHA": 0},
+      "max_hp": 16,
+      "damage_die": "d4",
+      "armor": 0,
+      "alignment": {"name": "Neutral", "description": "Discover something about a magical mystery."},
+      "look": "Tall and pale, singed sleeves, a crooked staff hung with small brass charms.",
+      "gear": [
+        "Crooked ash staff (close, two-handed)",
+        "Brass-bound spellbook",
+        "Belt pouch of chalk, salt, and dried sage",
+        "Antitoxin & 1 healing potion",
+        "Dungeon rations (5 uses)"
+      ],
+      "bonds": [
+        "Brother Tamsin Reed's faith and my arcane lore point to the same old truths—we just disagree on the names.",
+        "Bronwen Ashgrove is the only reason I survived the road through the foothills.",
+        "Pip Quillfeather found an old brass key I've been trying to study for weeks."
+      ],
+      "class_moves": [
+        {"name": "Cast a Spell (INT)", "description": "Cast prepared spells like Magic Missile (2d4 damage), Detect Magic, Light, or Unseen Servant."},
+        {"name": "Arcane Lore", "description": "When you Spout Lore about magic, wards, or ancient rituals, you have deep scholarly insight."},
+        {"name": "Ritual", "description": "Given time and a place of power, you can weave a greater magical effect at a cost."}
+      ]
+    }
   ]
 }
